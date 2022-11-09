@@ -1,0 +1,24 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
+metadata:
+  name: cs2304-demo
+  namespace: default
+spec:
+  interval: 0m30s
+  url: https://github.com/mikesir87/sample-flux-manifests.git
+  ref:
+    branch: main
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: cs2304-demo
+  namespace: default
+spec:
+  interval: 0m30s
+  targetNamespace: default
+  sourceRef:
+    kind: GitRepository
+    name: cs2304-demo
+  path: "./"
+  prune: true
